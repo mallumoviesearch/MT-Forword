@@ -17,7 +17,8 @@ class Config:
     OWNER_ID = os.environ.get("OWNER_ID", 12345
                              
 
-)
+
+
 
     LIMIT = int(os.environ.get("LIMIT", "25000"))
     SKIP_NO = int(os.environ.get("SKIP_NO", "0"))
