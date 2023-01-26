@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Dark Angel
+# (c) @DarkzzAngel
+
+import pyromod.listen
 
 from pyrogram import Client, __version__
-
+from pyrogram.raw.all import layer
 from config import Config
 from config import LOGGER
-
 from user import User
 
 
@@ -31,12 +32,14 @@ class Bot(Client):
     async def start(self):
         await super().start()
         usr_bot_me = await self.get_me()
+        print(f"{usr_bot_me.first_name} with for Pyrogram v{__version__} (Layer {layer}) started on @{usr_bot_me.username}.")
+     
+        self.bot_info = usr_bot_me
         self.set_parse_mode("html")
-        self.LOGGER(__name__).info(
-            f"@{usr_bot_me.username}  started! "
-        )
         self.USER, self.USER_ID = await User().start()
 
     async def stop(self, *args):
+        usr_bot_me = await self.get_me()
+        msg = f"@{usr_bot_me.username} stopped. Bye."
         await super().stop()
-        self.LOGGER(__name__).info("Bot stopped. Bye.")
+        print(msg)
