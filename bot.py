@@ -2,8 +2,6 @@
 # -*- coding: utf-8 -*-
 # (c) @DarkzzAngel
 
-import pyromod.listen
-
 from pyrogram import Client, __version__
 from pyrogram.raw.all import layer
 from config import Config
