@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Dark Angel
+# (c) @DarkzzAngel
 
 from config import Config
 from config import LOGGER
@@ -20,6 +20,7 @@ class User(Client):
     async def start(self):
         await super().start()
         usr_bot_me = await self.get_me()
+        print(f"Userbot Account {usr_bot_me.first_name} started")
         return (self, usr_bot_me.id)
 
     async def stop(self, *args):
