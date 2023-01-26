@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# (c) Dark Angel
+# (c) @DarkzzAngel
 
 import os
+import sys
+import asyncio
 from config import Config
 from translation import Translation
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument
+
+#===================Start Function===================#
 
 @Client.on_message(filters.private & filters.command(['start']))
 async def start(client, message):
     buttons = [[
-        InlineKeyboardButton('🗣️Group', url='t.me/mo_tech_Group'),
-        InlineKeyboardButton('📢Updates', url='t.me/mo_tech_yt'),
-        InlineKeyboardButton('📃Bot List', url='https://t.me/Mo_Tech_YT/176'),
-    ],[
-        InlineKeyboardButton('🖥️ How To Own 🖥️', url='https://youtu.be/8kS8C9Tyvnc')
+        InlineKeyboardButton('📜 Support Group', url='https://t.me/Mo_Tech_Group'),
+        InlineKeyboardButton('Update Channel ♻️', url='https://t.me/Mo_Tech_YT')
+        ],[
+        InlineKeyboardButton('💡 Deploy', url='https://youtu.be/B6jQGOJDVi0'),
+        InlineKeyboardButton('String Session 🎻', url ='https://youtu.be/WUN_12-dYOM')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
@@ -25,14 +29,13 @@ async def start(client, message):
                 message.from_user.first_name),
         parse_mode="html")
 
+#===================Help Function===================#
+
 @Client.on_message(filters.private & filters.command(['help']))
 async def help(client, message):
     buttons = [[
-        InlineKeyboardButton('🗣️Group', url='t.me/mo_tech_Group'),
-        InlineKeyboardButton('📢Updates', url='t.me/mo_tech_yt'),
-        InlineKeyboardButton('🔐Close', callback_data='close_btn')
-        ],[
-        InlineKeyboardButton('🖥️ How To Own 🖥️', url='https://youtu.be/8kS8C9Tyvnc')
+        InlineKeyboardButton('SouceCode 💡', url='https://github.com/Jijinr/Frwdit-V2'),
+        InlineKeyboardButton('close 🔐', callback_data='close_btn')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
@@ -41,14 +44,13 @@ async def help(client, message):
         text=Translation.HELP_TXT,
         parse_mode="html")
 
+#=================About Function==================#
+
 @Client.on_message(filters.private & filters.command(['about']))
 async def about(client, message):
     buttons = [[
-        InlineKeyboardButton('🗣️Group', url='t.me/mo_tech_Group'),
-        InlineKeyboardButton('📢Updates', url='t.me/mo_tech_yt'),
-        InlineKeyboardButton('🔐Close', callback_data='close_btn')
-        ],[
-        InlineKeyboardButton('🖥️ How To Own 🖥️', url='https://youtu.be/8kS8C9Tyvnc')
+        InlineKeyboardButton('💡 Deploy', url='https://github.com/Jijinr/Frwdit-V2'),
+        InlineKeyboardButton('close 🔐', callback_data='close_btn')
     ]]
     reply_markup = InlineKeyboardMarkup(buttons)
     await client.send_message(
@@ -59,4 +61,14 @@ async def about(client, message):
         parse_mode="html"
     )
 
-        
+#==================Restart Function==================#
+
+@Client.on_message(filters.private & filters.command(['restart']))
+async def restart(client, message):
+    msg = await message.reply_text(
+        text="<i>Trying to restarting.....</i>"
+    )
+    await asyncio.sleep(5)
+    await msg.edit("<i>Server restarted successfully ✅</i>")
+    os.execl(sys.executable, sys.executable, *sys.argv)
+    
